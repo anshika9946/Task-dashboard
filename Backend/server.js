@@ -1,14 +1,13 @@
-// backend/server.js
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const mongoose = require('mongoose'); // Import MongoDB connection
+const mongoose = require('mongoose');
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 require('dotenv').config();
 
+//connecting database
 mongoose.connect(process.env.MONGODB_URI, {
   });
   const db = mongoose.connection;
@@ -18,6 +17,8 @@ mongoose.connect(process.env.MONGODB_URI, {
   });
 
 // Routes
+app.use('/api', require('./routes/taskRoutes'));
+
 app.get('/', (req, res) => {
   res.send('Welcome to the Task Management System API!');
 });
