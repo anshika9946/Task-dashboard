@@ -39,6 +39,7 @@ const TaskForm = ({ fetchTasks }) => {
     <div className="task-form">
       <h2>Add New Task</h2>
       <form onSubmit={handleSubmit}>
+      <label htmlFor="task-title">Title:</label>
         <input
           type="text"
           name="title"
@@ -47,6 +48,8 @@ const TaskForm = ({ fetchTasks }) => {
           placeholder="Title"
           required
         />
+
+        <label htmlFor="task-desc">Description:</label>
         <textarea
           name="description"
           value={newTask.description}
@@ -54,6 +57,8 @@ const TaskForm = ({ fetchTasks }) => {
           placeholder="Description"
           required
         />
+<div className="priority-date-container">
+        <label htmlFor="task-priority">Priority:</label>
         <select
           name="priority"
           value={newTask.priority}
@@ -64,6 +69,8 @@ const TaskForm = ({ fetchTasks }) => {
           <option value="Medium">Medium</option>
           <option value="High">High</option>
         </select>
+
+        <label htmlFor="task-date">Due Date:</label>
         <input
           type="date"
           name="dueDate"
@@ -71,6 +78,8 @@ const TaskForm = ({ fetchTasks }) => {
           onChange={handleChange}
           required
         />
+</div>
+        <label htmlFor="task-date">Tags:</label>
         <input
           type="text"
           name="tags"
