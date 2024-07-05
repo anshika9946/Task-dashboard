@@ -86,7 +86,7 @@ const TaskForm = ({ fetchTasks }) => {
 
 // PropTypes validation
 TaskForm.propTypes = {
-  fetchTasks: PropTypes.func.isRequired, // Ensure fetchTasks is a required function prop
+  fetchTasks: PropTypes.func.isRequired,
 };
 
 export default TaskForm;

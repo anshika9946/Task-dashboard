@@ -1,4 +1,3 @@
-// src/components/TaskDetail.jsx
 import React from 'react';
 
 const TaskDetail = ({ task }) => {

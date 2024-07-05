@@ -1,35 +1,83 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { deleteTask } from '../api/api';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types'; 
+import { deleteTask, updateTask } from '../api/api';
 
 const TaskItem = ({ task, fetchTasks }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTask, setEditedTask] = useState(task);
+
   const handleDelete = async () => {
     try {
-      await deleteTask(task._id); // Ensure task._id is passed to deleteTask function
-      fetchTasks(); // Refresh tasks after deletion
+      await deleteTask(task._id);
+      fetchTasks(); 
     } catch (error) {
-      console.error('Error deleting task:', error.message);
+      console.error(`Error deleting task ${task._id}:`, error.message);
+    }
+  };
+
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditedTask((prevTask) => ({
+      ...prevTask,
+      [name]: value,
+    }));
+  };
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await updateTask(task._id, editedTask);
+      fetchTasks(); 
+      setIsEditing(false);
+    } catch (error) {
+      console.error(`Error updating task ${task._id}:`, error.message);
     }
   };
 
   return (
     <li className="task-item">
-      <h3>{task.title}</h3>
-      <p>{task.description}</p>
-      <div className="tags">
-        {task.tags.map((tag, index) => (
-          <span key={index}>{tag}</span>
-        ))}
-      </div>
-      <div className="actions">
-        <button className="delete-btn" onClick={handleDelete}>
-          Delete
-        </button>
-      </div>
+      {isEditing ? (
+        <form onSubmit={handleEditSubmit}>
+          <input
+            type="text"
+            name="title"
+            value={editedTask.title}
+            onChange={handleEditChange}
+            required
+          />
+          <textarea
+            name="description"
+            value={editedTask.description}
+            onChange={handleEditChange}
+            required
+          />
+          <button type="submit">Save</button>
+          <button type="button" onClick={() => setIsEditing(false)}>
+            Cancel
+          </button>
+        </form>
+      ) : (
+        <>
+          <h3>{task.title}</h3>
+          <p>{task.description}</p>
+          <div className="tags">
+            {task.tags.map((tag, index) => (
+              <span key={index}>{tag}</span>
+            ))}
+          </div>
+          <div className="actions">
+            <button onClick={() => setIsEditing(true)}>Edit</button>
+            <button className="delete-btn" onClick={handleDelete}>
+              Delete
+            </button>
+          </div>
+        </>
+      )}
     </li>
   );
 };
 
+// PropTypes validation
 TaskItem.propTypes = {
   task: PropTypes.shape({
     _id: PropTypes.string.isRequired,

@@ -1,47 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types'; // Import PropTypes
-import { fetchTasks } from '../api/api';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import TaskItem from './TaskItem';
 
-const TaskList = () => {
-  const [tasks, setTasks] = useState([]);
-
+const TaskList = ({ tasks, fetchTasks }) => {
   useEffect(() => {
-    const getTasks = async () => {
-      try {
-        const fetchedTasks = await fetchTasks();
-        setTasks(fetchedTasks); // Update tasks state with fetched tasks
-      } catch (error) {
-        console.error('Error fetching tasks:', error.message);
-      }
-    };
-
-    getTasks();
-  }, []);
-
-  const handleFetchTasks = async () => {
-    try {
-      const fetchedTasks = await fetchTasks();
-      setTasks(fetchedTasks); // Update tasks state with fetched tasks
-    } catch (error) {
-      console.error('Error fetching tasks:', error.message);
-    }
-  };
+    fetchTasks();
+  }, [fetchTasks]);
 
   return (
-    <div className="task-list">
-      <h2>Task List</h2>
-      {tasks.length === 0 ? (
-        <p>No tasks found.</p>
-      ) : (
-        <ul>
-          {tasks.map((task) => (
-            <TaskItem key={task._id} task={task} fetchTasks={handleFetchTasks} />
-          ))}
-        </ul>
-      )}
-    </div>
+    <ul className="task-list">
+      {tasks.map((task) => (
+        <TaskItem key={task._id} task={task} fetchTasks={fetchTasks} />
+      ))}
+    </ul>
   );
+};
+
+// PropTypes validation
+TaskList.propTypes = {
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+    })
+  ).isRequired,
+  fetchTasks: PropTypes.func.isRequired,
 };
 
 export default TaskList;
