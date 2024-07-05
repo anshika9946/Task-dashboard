@@ -79,14 +79,6 @@ const TaskForm = ({ fetchTasks }) => {
           required
         />
 </div>
-        <label htmlFor="task-date">Tags:</label>
-        <input
-          type="text"
-          name="tags"
-          value={newTask.tags}
-          onChange={handleChange}
-          placeholder="Tags (comma separated)"
-        />
         <button type="submit">Add Task</button>
       </form>
     </div>

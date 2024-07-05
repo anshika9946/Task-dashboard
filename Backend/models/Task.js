@@ -18,7 +18,6 @@ const taskSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  tags: [String],
 });
 
 module.exports = mongoose.model('Task', taskSchema);

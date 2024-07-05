@@ -60,11 +60,6 @@ const TaskItem = ({ task, fetchTasks }) => {
         <>
           <h3>{task.title}</h3>
           <p>{task.description}</p>
-          <div className="tags">
-            {task.tags.map((tag, index) => (
-              <span key={index}>{tag}</span>
-            ))}
-          </div>
           <div className="actions">
             <button onClick={() => setIsEditing(true)}>Edit</button>
             <button className="delete-btn" onClick={handleDelete}>
