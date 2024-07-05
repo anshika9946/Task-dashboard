@@ -38,10 +38,10 @@ export const updateTask = async (taskId, updatedTask) => {
 
 // Function to delete a task
 export const deleteTask = async (taskId) => {
-  try {
-    await axios.delete(`${BASE_URL}/${taskId}`);
-  } catch (error) {
-    console.error(`Error deleting task ${taskId}:`, error.message);
-    throw error;
-  }
-};
+    try {
+      const response = await axios.delete(`${BASE_URL}/${taskId}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error deleting task ${taskId}: ${error.message}`);
+    }
+  };

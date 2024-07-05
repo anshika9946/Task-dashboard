@@ -62,14 +62,20 @@ router.put('/tasks/:id', getTask, async (req, res) => {
 });
 
 // Delete a task
-router.delete('/tasks/:id', getTask, async (req, res) => {
+router.delete('/tasks/:id', async (req, res) => {
   try {
-    await res.task.remove();
-    res.json({ message: 'Task deleted' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const deletedTask = await Task.findByIdAndDelete(req.params.id);
+    if (!deletedTask) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+    res.json({ message: 'Task deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting task:', error.message);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
 
 // Middleware function to get a task by ID
 async function getTask(req, res, next) {

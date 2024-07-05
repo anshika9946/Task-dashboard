@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types'; // Import PropTypes
 import { fetchTasks } from '../api/api';
 import TaskItem from './TaskItem';
 
@@ -9,15 +10,23 @@ const TaskList = () => {
     const getTasks = async () => {
       try {
         const fetchedTasks = await fetchTasks();
-        console.log(fetchedTasks); // Check fetched tasks
-        setTasks(fetchedTasks);
+        setTasks(fetchedTasks); // Update tasks state with fetched tasks
       } catch (error) {
         console.error('Error fetching tasks:', error.message);
       }
     };
 
     getTasks();
-  }, []); // Empty dependency array ensures it runs only once on mount
+  }, []);
+
+  const handleFetchTasks = async () => {
+    try {
+      const fetchedTasks = await fetchTasks();
+      setTasks(fetchedTasks); // Update tasks state with fetched tasks
+    } catch (error) {
+      console.error('Error fetching tasks:', error.message);
+    }
+  };
 
   return (
     <div className="task-list">
@@ -27,7 +36,7 @@ const TaskList = () => {
       ) : (
         <ul>
           {tasks.map((task) => (
-            <TaskItem key={task._id} task={task} />
+            <TaskItem key={task._id} task={task} fetchTasks={handleFetchTasks} />
           ))}
         </ul>
       )}

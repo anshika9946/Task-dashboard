@@ -1,7 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types'; // Import PropTypes
+import PropTypes from 'prop-types';
+import { deleteTask } from '../api/api';
 
-const TaskItem = ({ task }) => {
+const TaskItem = ({ task, fetchTasks }) => {
+  const handleDelete = async () => {
+    try {
+      await deleteTask(task._id); // Ensure task._id is passed to deleteTask function
+      fetchTasks(); // Refresh tasks after deletion
+    } catch (error) {
+      console.error('Error deleting task:', error.message);
+    }
+  };
+
   return (
     <li className="task-item">
       <h3>{task.title}</h3>
@@ -12,13 +22,14 @@ const TaskItem = ({ task }) => {
         ))}
       </div>
       <div className="actions">
-        <button className="delete-btn">Delete</button>
+        <button className="delete-btn" onClick={handleDelete}>
+          Delete
+        </button>
       </div>
     </li>
   );
 };
 
-// PropTypes validation
 TaskItem.propTypes = {
   task: PropTypes.shape({
     _id: PropTypes.string.isRequired,
@@ -26,6 +37,7 @@ TaskItem.propTypes = {
     description: PropTypes.string.isRequired,
     tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
+  fetchTasks: PropTypes.func.isRequired,
 };
 
 export default TaskItem;
