@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import TaskItem from './TaskItem';
 
@@ -23,7 +23,6 @@ TaskList.propTypes = {
       _id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
-      tags: PropTypes.arrayOf(PropTypes.string).isRequired,
     })
   ).isRequired,
   fetchTasks: PropTypes.func.isRequired,

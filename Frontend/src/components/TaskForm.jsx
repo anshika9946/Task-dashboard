@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types'; // Import PropTypes
 import { createTask } from '../api/api';
 
@@ -21,15 +21,10 @@ const TaskForm = ({ fetchTasks }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const taskToSubmit = {
-      ...newTask,
-      tags: newTask.tags.split(',').map(tag => tag.trim()),
-    };
-    console.log('Submitting task:', taskToSubmit); // Check if handleSubmit is triggered
     try {
-      await createTask(taskToSubmit);
+      await createTask(newTask);
       fetchTasks(); // Refresh tasks after adding new task
-      setNewTask({ title: '', description: '', priority: 'Low', dueDate: '', tags: '' });
+      setNewTask({ title: '', description: '', priority: 'Low', dueDate: ''});
     } catch (error) {
       console.error('Error adding task:', error.message); // Log any errors
     }
