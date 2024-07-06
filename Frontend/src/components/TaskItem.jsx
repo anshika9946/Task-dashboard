@@ -33,6 +33,10 @@ const TaskItem = ({ task, fetchTasks }) => {
       console.error(`Error updating task ${task._id}:`, error.message);
     }
   };
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
+  };
 
   return (
     <li className="task-item">
@@ -54,13 +58,13 @@ const TaskItem = ({ task, fetchTasks }) => {
           <input
             type="date"
             name="dueDate"
-            value={editedTask.dueDate} // Ensure editedTask has dueDate
+            value={editedTask.dueDate}
             onChange={handleEditChange}
             required
           />
           <select
             name="priority"
-            value={editedTask.priority} // Ensure editedTask has priority
+            value={editedTask.priority}
             onChange={handleEditChange}
             required
           >
@@ -77,8 +81,8 @@ const TaskItem = ({ task, fetchTasks }) => {
         <>
           <h3>{task.title}</h3>
           <p>{task.description}</p>
-          <p><strong>Due Date:</strong> {task.dueDate}</p>
-          <p><strong>Priority:</strong> {task.priority}</p>
+          <p><strong>Due Date:</strong> {formatDate(task.dueDate)}</p>
+          <p className="prior"><strong>Priority:</strong> {task.priority}</p>
           <div className="actions">
             <button onClick={() => setIsEditing(true)}>Edit</button>
             <button className="delete-btn" onClick={handleDelete}>

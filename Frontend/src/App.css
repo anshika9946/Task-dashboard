@@ -22,28 +22,15 @@ h1 {
   text-align: center;
   margin-bottom: 50px;
 }
-.priority-tag {
+
+
+.task-item .prior {
+  padding: 5px 10px;
+  border-radius: 5px;
   display: inline-block;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: bold;
-  margin-left: 8px;
-}
-
-.low-priority {
-  background-color: #28a745; /* Green for low priority */
-  color: #fff;
-}
-
-.medium-priority {
-  background-color: #ffc107; /* Yellow for medium priority */
-  color: #333;
-}
-
-.high-priority {
-  background-color: #dc3545; /* Red for high priority */
-  color: #fff;
+  background-color: #cacaca;
+  font-weight: bold; 
+  color: #ffffff;
 }
 
 .task-form {
@@ -72,23 +59,6 @@ h1 {
   color: #666;
 }
 
-.task-item .tags {
-  margin-top: 8px;
-}
-
-.task-item .tags span {
-  display: inline-block;
-  padding: 4px 8px;
-  background-color: #f0f0f0;
-  border-radius: 4px;
-  margin-right: 4px;
-  font-size: 12px;
-  color: #666;
-}
-
-.task-item .tags span:first-child {
-  margin-left: 0;
-}
 
 .task-item .actions {
   margin-top: 8px;  
