@@ -202,3 +202,29 @@ h1 {
 .edit-form button.cancel-btn:hover {
   background-color: #c82333;
 }
+@media (max-width: 800px) {
+  /* Adjust spacing and alignment for smaller screens */
+  body {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 0;
+
+  }
+  /* Example adjustments for specific elements */
+  .container {
+    padding: 10px;
+    margin: 10px;
+  }
+  .content {
+    margin: 10px; /* Example: Add margin around content */
+  }
+  .task-form {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .task-list {
+    
+    margin-right: 25px;
+  }
+}
