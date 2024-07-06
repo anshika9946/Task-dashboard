@@ -1,7 +1,7 @@
 // src/api/api.js
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3001/api/tasks'; // Replace with your backend API URL
+const BASE_URL = 'https://task-dashboard.onrender.com/api/tasks'; // Replace with your backend API URL
 
 // Function to fetch all tasks
 export const fetchTasks = async () => {
