@@ -157,3 +157,48 @@ h1 {
   font-size: 14px;
   background-color: #fff; /* White background */
 }
+
+.edit-form {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(196, 118, 118, 0.1);
+  margin-bottom: 20px;
+}
+
+.edit-form input[type="text"],
+.edit-form input[type="date"],
+.edit-form textarea,
+.edit-form select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #000; /* Thin black border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 14px;
+  color: #000;
+  background-color: #fff; /* White background */
+}
+
+.edit-form button {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-right: 8px;
+}
+
+.edit-form button:hover {
+  background-color: #218838;
+}
+
+.edit-form button.cancel-btn {
+  background-color: #dc3545;
+}
+
+.edit-form button.cancel-btn:hover {
+  background-color: #c82333;
+}

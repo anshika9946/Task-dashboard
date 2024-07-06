@@ -2,6 +2,21 @@ const express = require('express');
 const router = express.Router();
 const Task = require('../models/Task');
 
+// Middleware function to get a task by ID
+async function getTask(req, res, next) {
+  let task;
+  try {
+    task = await Task.findById(req.params.id);
+    if (task == null) {
+      return res.status(404).json({ message: 'Cannot find task' });
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+  res.task = task;
+  next();
+}
+
 // Get all tasks
 router.get('/tasks', async (req, res) => {
   try {
@@ -24,7 +39,6 @@ router.post('/tasks', async (req, res) => {
     description: req.body.description,
     priority: req.body.priority,
     dueDate: req.body.dueDate,
-    tags: req.body.tags,
   });
 
   try {
@@ -47,10 +61,7 @@ router.put('/tasks/:id', getTask, async (req, res) => {
     res.task.priority = req.body.priority;
   }
   if (req.body.dueDate != null) {
-    res.task.dueDate = req.body.dueDate;
-  }
-  if (req.body.tags != null) {
-    res.task.tags = req.body.tags;
+    res.task.dueDate = new Date(req.body.dueDate); // Parse dueDate to Date object
   }
 
   try {
@@ -74,22 +85,5 @@ router.delete('/tasks/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
-
-
-// Middleware function to get a task by ID
-async function getTask(req, res, next) {
-  let task;
-  try {
-    task = await Task.findById(req.params.id);
-    if (task == null) {
-      return res.status(404).json({ message: 'Cannot find task' });
-    }
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
-  }
-  res.task = task;
-  next();
-}
 
 module.exports = router;

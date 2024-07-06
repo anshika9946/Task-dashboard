@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'; 
 import { deleteTask, updateTask } from '../api/api';
 
 const TaskItem = ({ task, fetchTasks }) => {
@@ -9,7 +9,7 @@ const TaskItem = ({ task, fetchTasks }) => {
   const handleDelete = async () => {
     try {
       await deleteTask(task._id);
-      fetchTasks();
+      fetchTasks(); 
     } catch (error) {
       console.error(`Error deleting task ${task._id}:`, error.message);
     }
@@ -27,21 +27,17 @@ const TaskItem = ({ task, fetchTasks }) => {
     e.preventDefault();
     try {
       await updateTask(task._id, editedTask);
-      fetchTasks();
+      fetchTasks(); 
       setIsEditing(false);
     } catch (error) {
       console.error(`Error updating task ${task._id}:`, error.message);
     }
   };
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
-  };
 
   return (
     <li className="task-item">
       {isEditing ? (
-        <form onSubmit={handleEditSubmit}>
+        <form className="edit-form task-form" onSubmit={handleEditSubmit}>
           <input
             type="text"
             name="title"
@@ -54,24 +50,7 @@ const TaskItem = ({ task, fetchTasks }) => {
             value={editedTask.description}
             onChange={handleEditChange}
             required
-          />
-          <input
-            type="date"
-            name="dueDate"
-            value={editedTask.dueDate}
-            onChange={handleEditChange}
-            required
-          />
-          <select
-            name="priority"
-            value={editedTask.priority}
-            onChange={handleEditChange}
-            required
-          >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
+          />  
           <button type="submit">Save</button>
           <button type="button" onClick={() => setIsEditing(false)}>
             Cancel
@@ -81,7 +60,7 @@ const TaskItem = ({ task, fetchTasks }) => {
         <>
           <h3>{task.title}</h3>
           <p>{task.description}</p>
-          <p><strong>Due Date:</strong> {formatDate(task.dueDate)}</p>
+          <p><strong>Due Date:</strong> {task.dueDate}</p>
           <p className="prior"><strong>Priority:</strong> {task.priority}</p>
           <div className="actions">
             <button onClick={() => setIsEditing(true)}>Edit</button>
