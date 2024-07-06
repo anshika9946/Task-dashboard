@@ -34,6 +34,11 @@ const TaskItem = ({ task, fetchTasks }) => {
     }
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
+  };
+
   return (
     <li className="task-item">
       {isEditing ? (
@@ -60,7 +65,7 @@ const TaskItem = ({ task, fetchTasks }) => {
         <>
           <h3>{task.title}</h3>
           <p>{task.description}</p>
-          <p><strong>Due Date:</strong> {task.dueDate}</p>
+          <p><strong>Due Date:</strong> {formatDate(task.dueDate)}</p>
           <p className="prior"><strong>Priority:</strong> {task.priority}</p>
           <div className="actions">
             <button onClick={() => setIsEditing(true)}>Edit</button>
